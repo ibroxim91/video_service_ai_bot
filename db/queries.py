@@ -1,4 +1,5 @@
 from db.db import get_conn, put_conn
+from decimal import Decimal
 
 def execute_query(sql: str):
     conn = get_conn()
