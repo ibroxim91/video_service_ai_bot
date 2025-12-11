@@ -25,5 +25,11 @@ def get_sql_from_question(question: str) -> str:
         ],
         temperature=0,
     )
+    print()
+    print()
+    print()
+    print("resp ", resp)
+    print()
+    print()
     sql_query = resp.choices[0].message.content.strip()
     return sql_query
