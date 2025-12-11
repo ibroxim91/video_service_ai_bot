@@ -33,3 +33,5 @@ def get_sql_from_question(question: str) -> str:
     print()
     sql_query = resp.choices[0].message.content.strip()
     return sql_query
+
+get_sql_from_question("Сколько видео получило хотя бы один комментарий?")
