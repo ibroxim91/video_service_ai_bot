@@ -1,13 +1,13 @@
-from psycopg2.extensions import cursor
-from db.db import get_conn
+from db.db import get_conn, put_conn
 
-
-def execute_query(sql: str) -> int:
+def execute_query(sql: str):
     conn = get_conn()
-    cursor = conn.cursor()
-    # try:
-    cursor.execute(sql)
-    # except:
-        # return "Неверный запрос"   
-    return cursor.fetchone()[0]
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute(sql)
+            result = cursor.fetchall()
+            return result
+    finally:
+        put_conn(conn)  
+
 

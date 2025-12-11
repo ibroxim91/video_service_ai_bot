@@ -8,7 +8,7 @@ DB_PASSWORD = os.getenv("DB_PASSWORD")
 
 DB_DSN = f"host={DB_HOST} user={DB_USER} password={DB_PASSWORD} dbname={DB_NAME}"
 
-pool = SimpleConnectionPool(minconn=1, maxconn=10, dsn=DB_DSN)
+pool = SimpleConnectionPool(minconn=1, maxconn=20, dsn=DB_DSN)
 
 def get_conn():
     return pool.getconn()
