@@ -22,5 +22,14 @@ Video Service Bot — это сервис, который интегрирует
 
 ### 1. Клонирование репозитория
 ```bash
-git clone https://github.com/username/video_service_bot.git
-cd video_service_bot
+git clone https://github.com/ibroxim91/video_service_ai_bot
+cd video_service_ai_bot
+```
+
+## Запуск
+
+``` bash 
+  docker compose up --build
+
+```  
+
