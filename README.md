@@ -27,10 +27,62 @@ git clone https://github.com/ibroxim91/video_service_ai_bot
 cd video_service_ai_bot
 ```
 
+## Настройка окружения
+### Создайте файл .env в корне проекта:
+
+
+``` bash 
+
+DB_NAME=DB_NAME
+DB_USER=DB_USER
+DB_PASSWORD=DB_PASSWORD
+OPENAI_API_KEY=OPENAI_API_KEY
+DB_HOST=DB_HOST
+BOT_TOKEN=BOT_TOKEN
+WEBHOOK_URL=WEBHOOK_URL
+
+
+```
+
+
 ## Запуск
 
 ``` bash 
   docker compose up --build
 
 ```  
+
+## Инициализация базы данных
+Данные и структура таблиц могут быть развёрнуты автоматически при запуске Docker‑контейнера — для этого используется файл init.sql, который копируется в контейнер и выполняется при старте PostgreSQL.
+
+Если вы хотите выполнить инициализацию вручную, используйте следующую команду:
+``` bash 
+
+cd migrations
+
+psql -U user -d db -f init.sql
+
+``` 
+
+Где:
+``` bash 
+user — имя пользователя базы данных;
+
+db — название базы данных;
+
+init.sql — скрипт, содержащий создание таблиц и загрузку данных.
+
+```
+
+После выполнения скрипта таблицы videos и video_snapshots будут созданы и заполнены данными из предоставленного JSON‑файла.
+
+
+## Тестирование
+
+Запуск тестов:
+
+``` bash 
+ pytest
+
+ ```
 
