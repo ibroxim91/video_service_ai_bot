@@ -13,6 +13,22 @@ CREATE TABLE videos (
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS video_snapshots (
+    id TEXT PRIMARY KEY UNIQUE NOT NULL,
+    video_id TEXT NOT NULL REFERENCES videos(id) ON DELETE CASCADE,
+    views_count BIGINT NOT NULL DEFAULT 0,
+    likes_count BIGINT NOT NULL DEFAULT 0,
+    comments_count BIGINT NOT NULL DEFAULT 0,
+    reports_count BIGINT NOT NULL DEFAULT 0,
+    delta_views_count BIGINT NOT NULL DEFAULT 0,
+    delta_likes_count BIGINT NOT NULL DEFAULT 0,
+    delta_comments_count BIGINT NOT NULL DEFAULT 0,
+    delta_reports_count BIGINT NOT NULL DEFAULT 0,
+    created_at TIMESTAMPTZ NOT NULL,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+
 Твоя задача: по запросу пользователя на русском языке вернуть ТОЛЬКО корректный SQL-запрос (без пояснений, текста или форматирования). 
 Запрос должен быть совместим с PostgreSQL.
 
@@ -37,6 +53,11 @@ SELECT COALESCE(SUM(views_count),0) FROM videos WHERE video_created_at::date = '
 Вопрос: «Сколько разных видео получали новые просмотры 27 ноября 2025?»  
 Ответ:  
 SELECT COUNT(DISTINCT id) FROM videos WHERE views_count > 0 AND video_created_at::date = '2025-11-27';
+
+Вопрос: Сколько всего есть замеров статистики (по всем видео), в которых число просмотров за час оказалось отрицательным — то есть по сравнению с предыдущим замером количество просмотров стало меньше?.
+Ответ:  SELECT COUNT(*) AS negative_snapshots
+FROM video_snapshots
+WHERE delta_views_count < 0;
 
 Правила:
 - Всегда возвращай только SQL-запрос.
