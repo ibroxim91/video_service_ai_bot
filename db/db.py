@@ -1,5 +1,7 @@
 import os
 from psycopg2.pool import SimpleConnectionPool
+from dotenv import load_dotenv
+load_dotenv()
 
 DB_HOST = os.getenv("DB_HOST")
 DB_NAME = os.getenv("DB_NAME")
