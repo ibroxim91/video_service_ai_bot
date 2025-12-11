@@ -62,6 +62,17 @@ SELECT COUNT(DISTINCT video_id) FROM video_snapshots WHERE delta_likes_count > 0
 Ответ:
 SELECT COALESCE(SUM(delta_comments_count),0) FROM video_snapshots WHERE created_at::date = '2025-11-29';
 
+
+Вопрос: На сколько просмотров суммарно выросли все видео креатора с id cd87be38b50b4fdd8342bb3c383f3c7d в промежутке с 10:00 до 15:00 (по тому времени, которое хранится в замерах) 28 ноября 2025 года? Нужно сложить изменения просмотров между замерами, попадающими в этот интервал
+Ответ:
+SELECT SUM(vs.delta_views_count) AS total_views_growth
+FROM video_snapshots vs
+JOIN videos v ON v.id = vs.video_id
+WHERE v.creator_id = 'cd87be38b50b4fdd8342bb3c383f3c7d'
+  AND vs.created_at >= '2025-11-28 10:00:00'
+  AND vs.created_at <= '2025-11-28 15:00:00';
+
+
 🔹 Правила
 Всегда возвращай только SQL-запрос.
 
