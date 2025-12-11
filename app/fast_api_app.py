@@ -11,9 +11,9 @@ WEBHOOK_URL = os.getenv("WEBHOOK_URL")
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # await bot.set_webhook(WEBHOOK_URL)
+    await bot.set_webhook(WEBHOOK_URL)
     yield
-    # await bot.delete_webhook()
+    await bot.delete_webhook()
 
 app = FastAPI(lifespan=lifespan)
 
